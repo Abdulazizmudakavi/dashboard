@@ -1,19 +1,19 @@
+import 'package:dashboard/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 
 class InvoicesResponseView extends GetView {
-  const InvoicesResponseView({super.key});
+  InvoicesResponseView({super.key});
+  final DashboardController controller = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       padding: EdgeInsets.only(top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-        
           Container(
             padding: EdgeInsets.only(
               top: 0,
@@ -23,14 +23,12 @@ class InvoicesResponseView extends GetView {
             ),
             decoration: BoxDecoration(
               color: Colors.white,
-            
               border: Border.all(color: Color(0xff0095FF), width: 1.0),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,7 +50,6 @@ class InvoicesResponseView extends GetView {
                   ],
                 ),
                 SizedBox(height: 8),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -90,7 +87,8 @@ class InvoicesResponseView extends GetView {
                           ),
                         ),
                         Positioned(
-                          child: Text(
+                            child: 
+                          Text(
                             '5 invoices',
                             style: TextStyle(
                               fontSize: 8,
@@ -146,10 +144,7 @@ class InvoicesResponseView extends GetView {
               ],
             ),
           ),
-
-          SizedBox(height: 20), 
-
-        
+          SizedBox(height: 20),
           Container(
             padding: EdgeInsets.only(
               top: 0,
@@ -159,14 +154,12 @@ class InvoicesResponseView extends GetView {
             ),
             decoration: BoxDecoration(
               color: Colors.white,
-             
               border: Border.all(color: Color(0xff0095FF), width: 1.0),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -188,8 +181,6 @@ class InvoicesResponseView extends GetView {
                   ],
                 ),
                 SizedBox(height: 8),
-
-               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -208,7 +199,6 @@ class InvoicesResponseView extends GetView {
                                   value: 62.5,
                                   title: '',
                                   color: Colors.green,
-
                                   radius: 15,
                                 ),
                                 PieChartSectionData(
@@ -218,24 +208,19 @@ class InvoicesResponseView extends GetView {
                                   radius: 15,
                                 ),
                                 PieChartSectionData(
-                                  value:
-                                      8.25, 
+                                  value: 8.25,
                                   title: '',
                                   color: Colors.orange,
-
                                   radius: 15,
                                 ),
                                 PieChartSectionData(
-                                  value:
-                                      8.25, 
+                                  value: 8.25,
                                   title: '',
                                   color: const Color.fromARGB(255, 212, 58, 47),
-
                                   radius: 15,
                                 ),
                                 PieChartSectionData(
-                                  value:
-                                      4.5, 
+                                  value: 4.5,
                                   title: '',
                                   color: Colors.red,
                                   radius: 15,
@@ -358,14 +343,12 @@ class InvoicesResponseView extends GetView {
             ),
             decoration: BoxDecoration(
               color: Colors.white,
-              
               border: Border.all(color: Color(0xff0095FF), width: 1.0),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-             
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -387,7 +370,6 @@ class InvoicesResponseView extends GetView {
                   ],
                 ),
                 SizedBox(height: 0),
-
                 Table(
                   columnWidths: const <int, TableColumnWidth>{
                     0: FlexColumnWidth(2),

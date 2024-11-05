@@ -1,7 +1,10 @@
+import 'package:dashboard/app/helpers/constants.dart';
 import 'package:dashboard/app/modules/dashboard/views/btn_top_view.dart';
-import 'package:dashboard/app/modules/dashboard/views/leads_view.dart';
+import 'package:dashboard/app/modules/dashboard/views/fourdashboards_view.dart';
+// import 'package:dashboard/app/modules/dashboard/views/fourdashboards_view.dart';
+// import 'package:dashboard/app/modules/dashboard/views/leads_view.dart';
 import 'package:dashboard/app/modules/dashboard/views/money_view.dart';
-import 'package:dashboard/app/modules/dashboard/views/quote_booked_view.dart';
+// import 'package:dashboard/app/modules/dashboard/views/quote_booked_view.dart';
 import 'package:dashboard/app/modules/dashboard/views/invoices_response_view.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +55,7 @@ class DashboardView extends GetView<DashboardController> {
           ],
         ),
         centerTitle: true,
-        backgroundColor: Color(0xff0055bb),
+        backgroundColor: AppColors.primaryColor,
         toolbarHeight: 70,
         leading: IconButton(
           icon: Icon(
@@ -74,10 +77,13 @@ class DashboardView extends GetView<DashboardController> {
               SizedBox(height: 20),
               MoneyView(),
               SizedBox(height: 20),
-              LeadsView(),
-              SizedBox(height: 20),
-              QuoteBookedView(),
-              SizedBox(height: 10),
+              FourdashboardsView(),
+               SizedBox(height: 30),
+
+              // LeadsView(),
+              // SizedBox(height: 20),
+              // QuoteBookedView(),
+              // SizedBox(height: 10),
               InvoicesResponseView(),
               SizedBox(height: 20),
             ],
@@ -86,7 +92,7 @@ class DashboardView extends GetView<DashboardController> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xff0055bb),
+        backgroundColor: AppColors.primaryColor,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: 0,
