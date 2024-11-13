@@ -1,116 +1,90 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import '../controllers/dashboard_controller.dart';
 
-class MoneyView extends GetView {
-  const MoneyView({super.key});
+class MoneyView extends GetView<DashboardController> {
+  MoneyView({super.key});
+  final DashboardController controller = Get.put(DashboardController());
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: 0,
-                left: 10,
-                right: 15,
-                bottom: 10,
-              ), 
+    return Obx(() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: List.generate(controller.moneyList.length, (index) {
+          final moneyData = controller.moneyList[index];
+          return Expanded(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 5,),
+              padding: EdgeInsets.only(bottom: 20,left: 15,),
               decoration: BoxDecoration(
-                color: Colors.white, 
-                border: Border.all(color: Color(0xff0095FF), 
-                  width: 1.0, 
-                ),
-                borderRadius:
-                    BorderRadius.circular(8.0), 
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                
+                border: Border.all(color: Color(0xff0095FF), width: 1.0),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Money In'),
-                      Checkbox(
-                        value: false,
-                        onChanged: (bool? value) {},
-                        side: WidgetStateBorderSide.resolveWith(
-                          (states) =>
-                              const BorderSide(width: 1.0, color: Colors.grey),
-                        ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            
+                            moneyData['title'],
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'DmSans',
+                                fontWeight: FontWeight.normal),
+                          ),
+                          Checkbox(
+                            value: moneyData['isChecked'].value,
+                            onChanged: (bool? value) {
+                              controller.toggleCheckbox(index);
+                            },
+
+                            checkColor: Color(
+                                0xFF0055BB), 
+                            fillColor:
+                               WidgetStateProperty.resolveWith((states) {
+                              return Colors
+                                  .white; 
+                            }),
+                            side:WidgetStateBorderSide.resolveWith(
+                              (states) => const BorderSide(
+                                  width: 1.0, color: Colors.grey),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Text('\$ 2,450',
-                   style: TextStyle(
+                  SizedBox(height: 5),
+                 
+                  Text(
+                    '\$${moneyData['amount'] ?? 0}',
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                       color: Color(0xff0355b8),
-                    ),),
+                      fontFamily: 'DmSans',
+                      color: Color(0xff0355b8),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                 
                   Text(
-                    '(Invoices marked paid)',
+                    moneyData['description'] ?? '',
                     style: TextStyle(
                       fontSize: 10,
-                      fontWeight: FontWeight.normal,
-                      
+                      fontFamily: 'DmSans',
+                      color: Colors.grey[600],
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                top: 0,
-                left: 10,
-                right: 15,
-                bottom: 10,
-              ), 
-              decoration: BoxDecoration(
-                color: Colors.white, 
-               border: Border.all(color: Color(0xff0095FF), 
-                  width: 1.0, 
-                ),
-                borderRadius:
-                    BorderRadius.circular(8.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Money Out'),
-                      Checkbox(
-                        value: false,
-                        onChanged: (bool? value) {},
-                        side: WidgetStateBorderSide.resolveWith(
-                          (states) =>
-                              const BorderSide(width: 1.0, color: Colors.grey),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text('\$ 200',
-                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                       color: Color(0xff0355b8),
-                    ),),
-                  Text(
-                    '(Purchases/Expenses made)',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        )
-      ],
-    );
+          );
+        }),
+      );
+    });
   }
 }

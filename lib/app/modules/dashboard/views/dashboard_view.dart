@@ -78,7 +78,8 @@ class DashboardView extends GetView<DashboardController> {
               MoneyView(),
               SizedBox(height: 20),
               FourdashboardsView(),
-               SizedBox(height: 30),
+              //  SimplePieChartView(),
+               SizedBox(height: 10),
 
               // LeadsView(),
               // SizedBox(height: 20),
