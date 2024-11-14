@@ -52,13 +52,13 @@ class FourdashboardsView extends GetView<DashboardController> {
                             chartData['title'],
                             style: TextStyle(
                                 fontSize: 12,
-                                fontFamily: 'DmSans',
+                              
                                 fontWeight: FontWeight.normal),
                           ),
                           Checkbox(
                             value: chartData['isChecked'].value,
                             onChanged: (bool? value) {
-                              controller.toggleCheckbox(index);
+                              controller.toggleChartCheckbox(index);
                             },
                             checkColor: Color(0xFF0055BB),
                             fillColor:
@@ -96,7 +96,7 @@ class FourdashboardsView extends GetView<DashboardController> {
                                   style: TextStyle(
                                     fontSize: 8,
                                     fontWeight: FontWeight.normal,
-                                    fontFamily: 'DmSans',
+                                   
                                     color: Colors.black,
                                   ),
                                 ),

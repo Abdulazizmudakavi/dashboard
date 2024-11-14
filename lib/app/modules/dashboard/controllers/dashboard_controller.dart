@@ -83,8 +83,8 @@ class DashboardController extends GetxController {
         },
         'colors': {
           'Paid': Color(0xff0355b8),
-          'Unpaid':Color.fromARGB(239, 243, 219, 61),
-          'Overdue':Color(0xfff3403d),
+          'Unpaid': Color.fromARGB(239, 243, 219, 61),
+          'Overdue': Color(0xfff3403d),
         },
         'isChecked': false.obs,
       },
@@ -111,7 +111,20 @@ class DashboardController extends GetxController {
     });
   }
 
-  void toggleCheckbox(int index) {
+  void toggleMoneyCheckbox(int index) {
+    bool currentValue = moneyList[index]['isChecked'].value;
+    moneyList[index]['isChecked'].value = !currentValue;
+
+    if (moneyList[index]['isChecked'].value) {
+      for (int i = 0; i < moneyList.length; i++) {
+        if (i != index) {
+          moneyList[i]['isChecked'].value = false;
+        }
+      }
+    }
+  }
+
+  void toggleChartCheckbox(int index) {
     if (index >= 0 && index < chartList.length) {
       chartList[index]['isChecked'].value =
           !chartList[index]['isChecked'].value;

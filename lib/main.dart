@@ -10,6 +10,10 @@ void main() {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Application",
+      theme: ThemeData(
+        fontFamily: 'DmSans',
+       
+      ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     ),
