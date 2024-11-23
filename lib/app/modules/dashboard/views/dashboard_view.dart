@@ -1,11 +1,13 @@
 import 'package:dashboard/app/helpers/constants.dart';
 import 'package:dashboard/app/modules/dashboard/views/btn_top_view.dart';
 import 'package:dashboard/app/modules/dashboard/views/fourdashboards_view.dart';
-// import 'package:dashboard/app/modules/dashboard/views/fourdashboards_view.dart';
-// import 'package:dashboard/app/modules/dashboard/views/leads_view.dart';
+import 'package:dashboard/app/modules/dashboard/views/insights_view.dart';
+// import 'package:dashboard/app/modules/dashboard/views/invoices_response_view.dart';
+// import 'package:dashboard/app/modules/dashboard/views/insights_view.dart';
+
 import 'package:dashboard/app/modules/dashboard/views/money_view.dart';
-// import 'package:dashboard/app/modules/dashboard/views/quote_booked_view.dart';
-import 'package:dashboard/app/modules/dashboard/views/invoices_response_view.dart';
+import 'package:dashboard/app/modules/dashboard/views/response_view.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,9 +18,7 @@ class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
-      
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
@@ -78,15 +78,12 @@ class DashboardView extends GetView<DashboardController> {
               MoneyView(),
               SizedBox(height: 20),
               FourdashboardsView(),
-              //  SimplePieChartView(),
-               SizedBox(height: 10),
-
-              // LeadsView(),
-              // SizedBox(height: 20),
-              // QuoteBookedView(),
               // SizedBox(height: 10),
-              InvoicesResponseView(),
-              SizedBox(height: 20),
+              ResponseSummaryView(),
+              // SizedBox(height: 10),
+              InsightsView(),
+              // InvoicesResponseView(),
+              SizedBox(height: 30),
             ],
           ),
         ),

@@ -37,11 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   get: ^4.6.6
   fl_chart: ^0.69.0
-  custom_rating_bar: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  custom_rating_bar: ^3.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -78,11 +79,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-fonts:
-  - family: DmSans
-    fonts:
-      - asset: fonts/DMSans-VariableFont_opsz,wght1.ttf
-      - asset: fonts/DMSans-VariableFont_opsz,wght2.ttf
+  fonts:
+    - family: DMSans
+      fonts:
+        - asset: assets/fonts/DMSans-Regular.ttf
+        - asset: assets/fonts/DMSans-Medium.ttf
+        - asset: assets/fonts/DMSans-Bold.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

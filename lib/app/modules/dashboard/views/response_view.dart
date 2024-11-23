@@ -3,36 +3,35 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
 
-class FourdashboardsView extends GetView<DashboardController> {
-  FourdashboardsView({super.key});
+class ResponseSummaryView extends GetView<DashboardController> {
+  ResponseSummaryView({super.key});
   final DashboardController controller = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
+    
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Obx(() {
             return Column(
-              children: List.generate(controller.chartList.length, (index) {
-                final chartData = controller.chartList[index];
+              children: List.generate(controller.responseList.length, (index) {
+                final responseData = controller.responseList[index];
 
                 List<PieChartSectionData> sections = [];
-                (chartData['data'] as Map<String, int>).forEach((key, value) {
-                  Color color = chartData['colors'][key] ?? Colors.grey;
+                (responseData['data'] as Map<String, double>)
+                    .forEach((key, value) {
+                  Color color = responseData['colors'][key] ?? Colors.grey;
                   sections.add(
                     PieChartSectionData(
-                      value: value.toDouble(),
+                      value: value,
                       color: color,
                       title: '',
                       radius: 15,
                     ),
                   );
                 });
-
-                print("Rendering chart for title: ${chartData['title']}");
-                print("Sections: $sections");
 
                 return Container(
                   margin: EdgeInsets.only(bottom: 20),
@@ -45,20 +44,20 @@ class FourdashboardsView extends GetView<DashboardController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            chartData['title'],
-                            style: TextStyle(
-                                fontSize: 12,
-                              
-                                fontWeight: FontWeight.normal),
-                          ),
-                          Checkbox(
-                            value: chartData['isChecked'].value,
+                      Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                responseData['title'],
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              Checkbox(
+                            value: responseData['isChecked'].value,
                             onChanged: (bool? value) {
-                              controller.toggleChartCheckbox(index);
+                              controller.toggleResponseCheckbox(index);
                             },
                             checkColor: Color(0xFF0055BB),
                             fillColor:
@@ -70,8 +69,8 @@ class FourdashboardsView extends GetView<DashboardController> {
                                   width: 1.0, color: Colors.grey),
                             ),
                           ),
-                        ],
-                      ),
+                            ],
+                          )),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -92,11 +91,10 @@ class FourdashboardsView extends GetView<DashboardController> {
                               ),
                               Positioned(
                                 child: Text(
-                                  '${(chartData['data'].values as Iterable<int>).reduce((int a, int b) => a + b)} ${chartData['title'].split(':')[0]}',
+                                  '24 Leads',
                                   style: TextStyle(
                                     fontSize: 8,
                                     fontWeight: FontWeight.normal,
-                                   
                                     color: Colors.black,
                                   ),
                                 ),
@@ -106,13 +104,14 @@ class FourdashboardsView extends GetView<DashboardController> {
                           SizedBox(width: 30),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: (chartData['data'] as Map<String, int>)
-                                .entries
-                                .map((entry) {
+                            children:
+                                (responseData['data'] as Map<String, double>)
+                                    .entries
+                                    .map((entry) {
                               String key = entry.key;
-                              int value = entry.value;
+                              double value = entry.value;
                               Color color =
-                                  chartData['colors'][key] ?? Colors.grey;
+                                  responseData['colors'][key] ?? Colors.grey;
                               return Row(
                                 children: [
                                   Container(
@@ -121,7 +120,7 @@ class FourdashboardsView extends GetView<DashboardController> {
                                     color: color,
                                   ),
                                   SizedBox(width: 8),
-                                  Text('$key $value',
+                                  Text('$key ${value.toStringAsFixed(2)}%',
                                       style: TextStyle(fontSize: 12)),
                                 ],
                               );

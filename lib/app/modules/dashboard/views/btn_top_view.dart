@@ -1,67 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/dashboard_controller.dart';
 
-class BtnTopView extends GetView {
-  const BtnTopView({super.key});
+class BtnTopView extends GetView<DashboardController> {
+  BtnTopView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        PopupMenuButton<String>(
-          onSelected: (value) {
-            print("Selected: $value");
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            const PopupMenuItem<String>(
-              value: 'Today',
-              child: Text('Today'),
-            ),
-            const PopupMenuItem<String>(
-              value: 'This Week',
-              child: Text('This Week'),
-            ),
-            const PopupMenuItem<String>(
-              value: 'This Month',
-              child: Text('This Month'),
-            ),
-            const PopupMenuItem<String>(
-              value: 'This Year',
-              child: Text('This Year'),
-            ),
-          ],
-          child: ElevatedButton(
-            onPressed: () {},
-            style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+        Obx(() => PopupMenuTheme(
+              data: PopupMenuThemeData(
+                color: Colors.white, 
               ),
-              side: BorderSide(color: Color(0xff0095FF), width: 1),
-            ),
-            child: Row(
-              children: [
-                Text(
-                  'This Week',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+              child: PopupMenuButton<String>(
+                onSelected: (value) {
+                  if (value == 'Clear') {
+                    controller.selectedOption.value = 'Date';
+                  } else {
+                    controller.selectedOption.value = value;
+                  }
+                },
+                offset: const Offset(0, 50), 
+                itemBuilder: (BuildContext context) {
+                  return controller.dropdownOptions
+                      .map<PopupMenuEntry<String>>((String value) {
+                    return PopupMenuItem<String>(
+                      value: value,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: controller.selectedOption.value == value
+                              ? Colors.grey[300]
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              value,
+                              style: TextStyle(
+                                fontSize: 14, 
+                                fontWeight: FontWeight.normal,
+                                color: controller.selectedOption.value == value
+                                    ? Colors.black 
+                                    : Colors.black, 
+                              ),
+                            ),
+                            const Spacer(),
+                            Icon(
+                              controller.selectedOption.value == value
+                                  ? Icons.radio_button_checked 
+                                  : Icons.radio_button_unchecked, 
+                              size: 24, 
+                              color: controller.selectedOption.value == value
+                                  ? Colors.black 
+                                  : Colors.black, 
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
+                child: ElevatedButton(
+                  onPressed: null,
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    side: const BorderSide(color: Color(0xff0095FF), width: 1),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        controller.selectedOption.value, 
+                        style: const TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(Icons.arrow_drop_down, color: Colors.black),
+                    ],
+                  ),
                 ),
-                const SizedBox(width: 4),
-                const Icon(Icons.arrow_drop_down, color: Colors.black),
-              ],
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {},
+              ),
+            )),
+
+       
+        OutlinedButton(
+          onPressed: () {
+            print('Save button clicked!');
+          },
           style: OutlinedButton.styleFrom(
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            side: BorderSide(color: Color(0xff0095FF), width: 1),
+            side: const BorderSide(color: Color(0xff0095FF), width: 1),
           ),
-          child: Text(
+          child: const Text(
             'Save',
             style: TextStyle(fontSize: 14, color: Colors.black),
           ),

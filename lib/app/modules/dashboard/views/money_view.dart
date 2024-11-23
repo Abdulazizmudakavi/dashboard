@@ -20,8 +20,8 @@ class MoneyView extends GetView<DashboardController> {
               padding: EdgeInsets.only(bottom: 20, left: 10, right: 0, top: 0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color(0xff0095FF), width: 1.5),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Color(0xff0095FF), width: 1.0),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,9 +32,9 @@ class MoneyView extends GetView<DashboardController> {
                       Text(
                         moneyData['title'],
                         style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'DmSans',
-                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                         
+                          // fontWeight: FontWeight.w500,
                           color: Colors.black87,
                         ),
                       ),
