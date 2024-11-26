@@ -10,85 +10,79 @@ class BtnTopView extends GetView<DashboardController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Obx(() => PopupMenuTheme(
-              data: PopupMenuThemeData(
-                color: Colors.white, 
-              ),
-              child: PopupMenuButton<String>(
-                onSelected: (value) {
-                  if (value == 'Clear') {
-                    controller.selectedOption.value = 'Date';
-                  } else {
-                    controller.selectedOption.value = value;
-                  }
-                },
-                offset: const Offset(0, 50), 
-                itemBuilder: (BuildContext context) {
-                  return controller.dropdownOptions
-                      .map<PopupMenuEntry<String>>((String value) {
-                    return PopupMenuItem<String>(
-                      value: value,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: controller.selectedOption.value == value
-                              ? Colors.grey[300]
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 8.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              value,
-                              style: TextStyle(
-                                fontSize: 14, 
-                                fontWeight: FontWeight.normal,
-                                color: controller.selectedOption.value == value
-                                    ? Colors.black 
-                                    : Colors.black, 
-                              ),
-                            ),
-                            const Spacer(),
-                            Icon(
-                              controller.selectedOption.value == value
-                                  ? Icons.radio_button_checked 
-                                  : Icons.radio_button_unchecked, 
-                              size: 24, 
-                              color: controller.selectedOption.value == value
-                                  ? Colors.black 
-                                  : Colors.black, 
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList();
-                },
-                child: ElevatedButton(
-                  onPressed: null,
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    side: const BorderSide(color: Color(0xff0095FF), width: 1),
-                  ),
+        Obx(
+          () => PopupMenuButton<String>(
+            position: PopupMenuPosition.under,
+            offset: const Offset(0, 3.5),
+
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide( color: Color(0xFFE0E0E0), width: 1),
+            ),
+            color: Color(0xFFFFFFFF),
+
+            initialValue: controller.selectedOption.value,
+            onSelected: (String value) {
+              controller.selectedOption.value = value;
+            },
+           
+            itemBuilder: (BuildContext context) {
+              return controller.dropdownOptions.map((String item) {
+                return PopupMenuItem<String>(
+                  value: item,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        controller.selectedOption.value, 
-                        style: const TextStyle(fontSize: 14, color: Colors.black),
+                        item,
+                        style:
+                            const TextStyle(fontSize: 14, letterSpacing: -0.35),
                       ),
-                      const SizedBox(width: 4),
-                      const Icon(Icons.arrow_drop_down, color: Colors.black),
+                      Icon(
+                        controller.selectedOption.value == item
+                            ? Icons.radio_button_checked
+                            : Icons.radio_button_unchecked,
+                        color: Color(0xff383838),
+                      ),
                     ],
                   ),
+                );
+              }).toList();
+            },
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                backgroundColor: Colors.white,
+                foregroundColor: const Color(0xff0095FF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                side: const BorderSide(
+                  color: Color(0xff0095FF),
+                  width: 1,
                 ),
               ),
-            )),
-
-       
+              onPressed: null,
+              child: Row(
+                children: [
+                  Text(
+                    controller.selectedOption.value == 'Clear'
+                        ? 'Date'
+                        : controller.selectedOption.value,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      letterSpacing: -0.35,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(Icons.arrow_drop_down, color: Colors.black),
+                ],
+              ),
+            ),
+          ),
+        ),
         OutlinedButton(
           onPressed: () {
             print('Save button clicked!');

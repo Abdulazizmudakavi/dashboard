@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
-// import 'package:custom_rating_bar/custom_rating_bar.dart';
 
 class InsightsView extends GetView<DashboardController> {
   InsightsView({super.key});
@@ -26,15 +26,15 @@ class InsightsView extends GetView<DashboardController> {
                 const Text(
                   "Client Insights",
                   style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
                 Checkbox(
-                 value: controller.insightsList
+                  value: controller.insightsList
                       .every((item) => item['isChecked'].value),
-                   onChanged: (bool? value) {
+                  onChanged: (bool? value) {
                     if (value != null) {
                       for (var item in controller.insightsList) {
                         item['isChecked'].value = value;
@@ -42,7 +42,7 @@ class InsightsView extends GetView<DashboardController> {
                     }
                   },
                   checkColor: const Color(0xFF0055BB),
-                  fillColor: WidgetStatePropertyAll(Colors.white),
+                  fillColor: const MaterialStatePropertyAll(Colors.white),
                   side: const BorderSide(
                     width: 1.0,
                     color: Colors.grey,
@@ -53,33 +53,46 @@ class InsightsView extends GetView<DashboardController> {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  "Client Rating",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    "Client Rating",
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-                Text(
-                  "Percentage",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    "Percentage",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-                Text(
-                  "Service Value",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    "Service Value",
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 8),
             ...List.generate(controller.insightsList.length, (index) {
               final insightsData = controller.insightsList[index];
               return Padding(
@@ -87,34 +100,41 @@ class InsightsView extends GetView<DashboardController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: List.generate(5, (starIndex) {
-                        return Icon(
-                          starIndex < insightsData['clientRating']
-                              ? Icons.star
-                              : Icons.star_border,
+                    Expanded(
+                      flex: 3,
+                      child: RatingBarIndicator(
+                        rating: insightsData['clientRating'].toDouble(),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
                           color: Colors.orange,
-                          size: 20,
-                        );
-                      }),
-                    ),
-
-                    Text(
-                      "${insightsData['percentage']}%",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                         fontWeight: FontWeight.normal,
+                        ),
+                        itemCount: 5,
+                        itemSize: 20.0,
+                        direction: Axis.horizontal,
                       ),
                     ),
-
-                   
-                    Text(
-                      insightsData['serviceValue'],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                         fontWeight: FontWeight.normal,
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        "${insightsData['percentage']}%",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        insightsData['serviceValue'],
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ],
